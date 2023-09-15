@@ -45,6 +45,8 @@ namespace S2PAndExcelDataApp
             checkBox1.Enabled = false;
             comboBoxSheetNames.Enabled = false;
             btnS2PFileSheetConverter.Enabled = false;
+            btnLimitlineEkle.Enabled = false;
+            groupBoxLimitLine.Enabled = false;
         }
 
         private void btnS2POpen_Click(object sender, EventArgs e)
@@ -68,6 +70,7 @@ namespace S2PAndExcelDataApp
             {
                 processor.createChart(this.S2PDataTable, chartData);
 
+                groupBoxLimitLine.Enabled = true;
                 btnS2PConverter.Enabled = true;
                 checkBox1.Checked = false;
                 checkBox1.Enabled = true;
@@ -76,7 +79,7 @@ namespace S2PAndExcelDataApp
                 btnS2PFileConverter.Enabled = false;
                 btnS2PFileSheetConverter.Enabled = false;
                 btnS2PSaveFileSelect.Enabled = false;
-
+                btnLimitlineEkle.Enabled = true;
 
                 btnSave.Enabled = false;
             }
@@ -123,7 +126,7 @@ namespace S2PAndExcelDataApp
                     {
                         processor.saveChart(package, chartData, saveName);
                         this.excelLineChart=processor.createExcelChart(S2PDataTable, package, saveName);
-                       // processor.limitLineEkleExcelChart("ssss", saveName, package, this.excelLineChart, 400, 2000, -30);
+                        //processor.limitLineEkleExcelChart("ssss", saveName, package, this.excelLineChart, 400, 2000, -30);
                         package.Save();
                     }
                     MessageBox.Show("Başarıyla kaydedildi.");
@@ -137,6 +140,8 @@ namespace S2PAndExcelDataApp
             this.selectedS2POpenFolderPath = s2pManager.S2PFolderOpen();
             if (selectedS2POpenFolderPath!=null)
             {
+                groupBoxLimitLine.Enabled = false;
+                btnLimitlineEkle.Enabled = false;
                 btnS2PSaveFileSelect.Enabled = true;
                 dataGridViewData.Columns.Clear();
                 dataGridViewQueriedData.Columns.Clear();
@@ -209,6 +214,7 @@ namespace S2PAndExcelDataApp
                     comboBoxSheetNames.Items.Add(item);
                 }
                 comboBoxSheetNames.SelectedIndex = 0;
+                groupBoxLimitLine.Enabled = false;
                 checkBox1.Enabled = true;
                 checkBox1.Checked = true;
                 checkBox1.Checked = false;
@@ -282,7 +288,9 @@ namespace S2PAndExcelDataApp
                 processor.createChart(this.filteredTable, chartData);
                 if (filteredTable!=null&&this.excelDataTable != null)
                 {
+                    groupBoxLimitLine.Enabled = true;
                     btnSave.Enabled = true;
+                    btnLimitlineEkle.Enabled = true;
                 }
                
 
@@ -312,7 +320,8 @@ namespace S2PAndExcelDataApp
                     if (!excelManager.IsFileInUse(filePath))
                     {
                         processor.saveChart(package, chartData, saveSheetName);
-                        processor.createExcelChart(filteredTable, package, saveSheetName);
+                        this.excelLineChart = processor.createExcelChart(filteredTable, package, saveSheetName);
+                        //processor.limitLineEkleExcelChart("saas",saveSheetName,package,excelLineChart,8,7,7);
                         package.Save();
                     }
                     
@@ -333,12 +342,14 @@ namespace S2PAndExcelDataApp
         }
         private void btnLimitlineEkle_Click(object sender, EventArgs e)
         {
-            double minMHz = double.Parse(textBox_LimitLine_MinMHz.Text);
-            double maxMHz = double.Parse(textBox_LimitLine_MaxMHz.Text);
-            double dB = double.Parse(textBox_LimitLine_dB.Text);
-            processor.LimitLineEkle(lblLimitLineName.Text, chartData, minMHz, maxMHz, dB);
-
-            //processor.limitLineEkleExcelChart(lblLimitLineName.Text,excelLineChart,minMHz,maxMHz, dB);
+            if (!textBox_LimitLine_MinMHz.Text.Equals("") && !textBox_LimitLine_MaxMHz.Text.Equals("") && !textBox_LimitLine_dB.Text.Equals(""))
+            {
+                double minMHz = double.Parse(textBox_LimitLine_MinMHz.Text);
+                double maxMHz = double.Parse(textBox_LimitLine_MaxMHz.Text);
+                double dB = double.Parse(textBox_LimitLine_dB.Text);
+                processor.LimitLineEkle(lblLimitLineName.Text, chartData, minMHz, maxMHz, dB);
+            }
+            //processor.limitLineEkleExcelChart(lblLimitLineName.Text,this.excelLineChart,minMHz,maxMHz, dB);
         }
         private void radioButtonS11_CheckedChanged(object sender, EventArgs e)
         {
@@ -431,6 +442,8 @@ namespace S2PAndExcelDataApp
             progressBar1.Minimum = 0;
             comboBoxSheetNames.Enabled = false;
             btnS2PFileConverter.Enabled = false;
+            btnS2PFileSheetConverter.Enabled = false;
+
         }
 
         private void textBoxMinMHz_KeyPress(object sender, KeyPressEventArgs e)

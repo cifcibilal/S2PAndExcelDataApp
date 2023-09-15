@@ -182,7 +182,7 @@ namespace S2PAndExcelDataApp
                 chart.ChartAreas[0].AxisY.LabelStyle.Format = "N2";
             }
 
-            
+
         }
         public void saveChart(ExcelPackage excelPackage, Chart chart, string sheetName)
         {
@@ -198,10 +198,10 @@ namespace S2PAndExcelDataApp
             }
         }
 
-        internal ExcelLineChart createExcelChart(DataTable dataTable, ExcelPackage package, string saveSheetName)
+        public ExcelLineChart createExcelChart(DataTable dataTable, ExcelPackage package, string saveSheetName)
         {
             var worksheet = package.Workbook.Worksheets[saveSheetName];
-            var chart = worksheet.Drawings.AddChart("Cizgisel", eChartType.Line) as ExcelLineChart;
+            var chart = worksheet.Drawings.AddChart("Grafik", eChartType.Line) as ExcelLineChart;
             chart.SetPosition(5, 0, 13, 0);
             chart.SetSize(800, 375);
             chart.XAxis.Title.Text = "MHz";
@@ -209,7 +209,7 @@ namespace S2PAndExcelDataApp
             chart.XAxis.LabelPosition = eTickLabelPosition.High;
 
             chart.XAxis.Fill.Style = eFillStyle.NoFill;
-            
+
             Color[] lineColors = { Color.DarkBlue, Color.DarkRed, Color.DarkGreen, Color.DarkOrange };
             int j = 1;
             for (int i = 1; i < dataTable.Columns.Count; i += 2)
@@ -224,70 +224,12 @@ namespace S2PAndExcelDataApp
             //package.Save();
             return chart;
         }
-      /*
-        public void limitLineEkleExcelChart(string limitLineName,string sheetName,ExcelPackage package, ExcelLineChart chart, double MinMHz, double MaxMHz, double dB)
+        
+          
+    public void limitLineEkleExcelChart(string limitLineName, string sheetName, ExcelPackage package, ExcelLineChart chart, double MinMHz, double MaxMHz, double dB)
         {
             var worksheet = package.Workbook.Worksheets[sheetName];
 
-            double startX = MinMHz;
-            double endX = MaxMHz;
-            double constantY = dB;
-
-            var series = chart.Series.Add(worksheet.Cells[1, 1, 600, 1], worksheet.Cells[1, 1, 100, 1]);
-
-            for (int i = 0; i < 600; i++)
-            {
-                double x = double.NaN;
-                if (i>=startX && i<= endX)
-                {
-                    x = constantY;
-                }
-                series.DataPoints.Add(i, x);
-            }
-
-            series.Header = limitLineName;
-            series.LineColor = Color.Black;
-            series.Fill.Style = eFillStyle.SolidFill;
-            
-        }*/
-        public void limitLineEkleExcelChart(string limitLineName, string sheetName, ExcelPackage package, ExcelLineChart chart, double MinMHz, double MaxMHz, double dB)
-        {
-            var worksheet = package.Workbook.Worksheets[sheetName];
-
-            double startX = MinMHz;
-            double endX = MaxMHz;
-            double constantY = dB;
-
-            // X ve Y değerlerini iki dizi olarak oluştur
-            var rangeX = new double[600];
-            var rangeY = new double[600];
-
-            for (int i = 0; i < 600; i++)
-            {
-                // X değerlerini 0 ile 599 arasında artan şekilde doldur
-                rangeX[i] =(double)i;
-
-                // Y değerlerini belirli bir aralıkta sabit, diğerlerinde NaN olarak doldur
-                if (i >= startX && i <= endX)
-                {
-                    rangeY[i] = constantY;
-                }
-                else
-                {
-                    rangeY[i] = double.NaN;
-                }
-            }
-            //var line = worksheet.Drawings.AddLineChart("s", 2, 2, 2, 10);
-
-            ExcelLineChartSerie series = chart.Series.Add(worksheet.Cells["2,1,1000,1"], worksheet.Cells["2,3,1000,3"]);
-
-            // X ve Y değerlerini grafiğe ekle
-           // //var series = chart.Series.Add(worksheet.Cells["A2:A1000"], worksheet.Cells["K2:H1000"]);
-           //
-           // Serinin başlığını, rengini ve stilini ayarla
-            series.Header = limitLineName;
-            series.LineColor = Color.Black;
-            series.Border.LineStyle = eLineStyle.Dash; // Noktalı çizgi olması için bu satırı ekle
         }
 
     }

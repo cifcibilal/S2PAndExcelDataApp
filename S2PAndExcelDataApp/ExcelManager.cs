@@ -142,12 +142,21 @@ namespace S2PAndExcelDataApp
                 }
 
                 string savePath = excelSaveFileDialog(saveSheetName);
-                if (savePath != null)
+                if (!IsFileInUse(savePath))
                 {
-                    excelPackage.SaveAs(new System.IO.FileInfo(savePath));
-                    
-                }      
-                return savePath;
+                    if (savePath != null)
+                    {
+                        excelPackage.SaveAs(new System.IO.FileInfo(savePath));
+
+                    }
+                    return savePath;
+                }
+                else
+                {
+                    MessageBox.Show("Önce dosyayı kapatın");
+                    return null;
+                }
+                
 
             }
         }
