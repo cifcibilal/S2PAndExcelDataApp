@@ -1,5 +1,4 @@
 # S2PAndExcelDataApp
-# S2PAndExcelDataApp
 
 S2PAndExcelDataApp, S parametre veri formatına uygun s2p dosyalarını excele dönüştürme ve grafiğini eklemeye yardımcı olan bir uygulamadır.
 
