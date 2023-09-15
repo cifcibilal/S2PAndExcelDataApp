@@ -65,14 +65,15 @@ namespace S2PAndExcelDataApp
             
             else
             {
-                MessageBox.Show("filterByMHz içinde hata meydana geldi. mhzColumn = null");
+                MessageBox.Show("Uyarı : Önce dosya açın.");
                 return null;
             }
 
         }
 
-        public void saveFilteredData(DataTable filteredTable, string filePath, string saveSheetName)
+        public bool saveFilteredData(DataTable filteredTable, string filePath, string saveSheetName)
         {
+            bool saveKontrol;
             if (filePath != null)
             {
                 using (var package = new ExcelPackage(new System.IO.FileInfo(filePath)))
@@ -91,16 +92,19 @@ namespace S2PAndExcelDataApp
                                 saveFilteredDataToWorksheet(package, filteredTable, saveSheetName);
                                 package.Save();
                                 MessageBox.Show("Sorgulanmış veriler sayfaya kaydedildi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                saveKontrol = true;
                             }
                             else
                             {
                                 MessageBox.Show("Önce dosyayı kapatın");
+                                saveKontrol = false;
                             }
                             
                         }
                         else
                         {
                             MessageBox.Show("veriler sayfaya kaydedilmedi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            saveKontrol = false;
                         }
                     }
                     else
@@ -110,10 +114,12 @@ namespace S2PAndExcelDataApp
                             saveFilteredDataToWorksheet(package, filteredTable, saveSheetName);
                             package.Save();
                             MessageBox.Show("Sorgulanmış veriler sayfaya kaydedildi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            saveKontrol = true;
                         }
                         else
                         {
                             MessageBox.Show("Önce dosyayı kapatın.");
+                            saveKontrol = false;
                         }
                         
                     }
@@ -122,8 +128,9 @@ namespace S2PAndExcelDataApp
             else
             {
                 MessageBox.Show("Excele Dönüştür butonunu kullanın.");
+                saveKontrol = false;
             }
-            
+            return saveKontrol;
         }
 
         private void saveFilteredDataToWorksheet(ExcelPackage package, DataTable filteredTable, string saveSheetName)

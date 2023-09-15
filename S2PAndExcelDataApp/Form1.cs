@@ -60,6 +60,14 @@ namespace S2PAndExcelDataApp
             if (selectedS2POpenFilePath != null)
             {
                 this.S2PDataTable = s2pManager.readFile(selectedS2POpenFilePath);
+                
+            }
+            else
+            {
+                this.S2PDataTable = null;
+                btnS2PConverter.Enabled = false;
+                textBoxMinMHz.Text = string.Empty;
+                textBoxMaxMHz.Text = string.Empty;
             }
             dataGridViewData.Columns.Clear();
             dataGridViewData.DataSource = this.S2PDataTable;
@@ -80,8 +88,8 @@ namespace S2PAndExcelDataApp
                 btnS2PFileSheetConverter.Enabled = false;
                 btnS2PSaveFileSelect.Enabled = false;
                 btnLimitlineEkle.Enabled = true;
-
                 btnSave.Enabled = false;
+                btnSorgula.Enabled = true;
             }
             
         }
@@ -95,7 +103,7 @@ namespace S2PAndExcelDataApp
             {
                 filePath = excelManager.S2PtoExcelSave(this.filteredTable, saveName);
 
-                if (chartData != null)
+                if (chartData != null && filePath != null)
                 {
                     using (ExcelPackage package = new ExcelPackage(new System.IO.FileInfo(filePath)))
                     {
@@ -146,6 +154,12 @@ namespace S2PAndExcelDataApp
                 dataGridViewData.Columns.Clear();
                 dataGridViewQueriedData.Columns.Clear();
             }
+            else
+            {
+                btnS2PSaveFileSelect.Enabled=false;
+                btnS2PFileConverter.Enabled=false;
+                btnS2PFileSheetConverter.Enabled=false;
+            }
             
         }
 
@@ -156,6 +170,11 @@ namespace S2PAndExcelDataApp
             {
                 btnS2PFileConverter.Enabled = true;
                 btnS2PFileSheetConverter.Enabled = true;
+            }
+            else
+            {
+                btnS2PFileConverter.Enabled=false;
+                btnS2PFileSheetConverter.Enabled =false;
             }
         }
 
@@ -197,6 +216,17 @@ namespace S2PAndExcelDataApp
             if (selectedExcelOpenFilePath != null)
             {
                 this.excelDataTable = excelManager.readFile(selectedExcelOpenFilePath, "0");
+            }
+            else
+            {
+                textBoxMaxMHz.Text= string.Empty;
+                textBoxMinMHz.Text= string.Empty;
+                this.excelDataTable = null;
+                comboBoxSheetNames.SelectedIndex = -1;
+                comboBoxSheetNames.Text = string.Empty;
+                comboBoxSheetNames.Items.Clear();
+                comboBoxSheetNames.Enabled = false;
+                btnSave.Enabled = false;
             }
             dataGridViewData.Columns.Clear();
             dataGridViewData.DataSource = this.excelDataTable;
@@ -311,29 +341,33 @@ namespace S2PAndExcelDataApp
 
             double minMHz = string.IsNullOrEmpty(selectedMinValue) ? 0 : double.Parse(selectedMinValue);
             double maxMHz = string.IsNullOrEmpty(selectedMaxValue) ? 0 : double.Parse(selectedMaxValue);
-            if (!saveSheetName.Equals("") && filteredTable != null && !filePath.Equals(""))
+            if (!saveSheetName.Equals("") && filteredTable != null && !filePath.Equals("") && saveSheetName != null)
             {
-                filter.saveFilteredData(filteredTable, filePath, saveSheetName);
-
-                using (ExcelPackage package = new ExcelPackage(new System.IO.FileInfo(filePath)))
+                
+                bool saveControl = filter.saveFilteredData(filteredTable, filePath, saveSheetName);
+                if (saveControl == true)
                 {
-                    if (!excelManager.IsFileInUse(filePath))
+                    using (ExcelPackage package = new ExcelPackage(new System.IO.FileInfo(filePath)))
                     {
-                        processor.saveChart(package, chartData, saveSheetName);
-                        this.excelLineChart = processor.createExcelChart(filteredTable, package, saveSheetName);
-                        //processor.limitLineEkleExcelChart("saas",saveSheetName,package,excelLineChart,8,7,7);
-                        package.Save();
-                    }
-                    
-                }
+                        if (!excelManager.IsFileInUse(filePath))
+                        {
+                            processor.saveChart(package, chartData, saveSheetName);
+                            this.excelLineChart = processor.createExcelChart(filteredTable, package, saveSheetName);
+                            //processor.limitLineEkleExcelChart("saas",saveSheetName,package,excelLineChart,8,7,7);
+                            package.Save();
+                            dataGridViewQueriedData.Columns.Clear();
+                        }
 
-                comboBoxSheetNames.Items.Clear();
-                UIHelper helper = new UIHelper();
-                foreach (var item in helper.getSheetNames(filePath))
-                {
-                    comboBoxSheetNames.Items.Add(item);
-                }
-                btnSave.Enabled = false;
+                    }
+
+                    comboBoxSheetNames.Items.Clear();
+                    UIHelper helper = new UIHelper();
+                    foreach (var item in helper.getSheetNames(filePath))
+                    {
+                        comboBoxSheetNames.Items.Add(item);
+                    }
+                    btnSave.Enabled = false;
+                } 
             }
             else
             {

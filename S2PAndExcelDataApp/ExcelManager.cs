@@ -55,7 +55,7 @@ namespace S2PAndExcelDataApp
             DataTable dataTable = new DataTable();
             try
             {
-                using(var package = new ExcelPackage(new FileInfo(path)))
+                using (var package = new ExcelPackage(new FileInfo(path)))
                 {
                     ExcelWorksheet excelWorksheet;
                     if (selectedSheetName.Equals("0"))
@@ -78,14 +78,14 @@ namespace S2PAndExcelDataApp
                         columnHeader = excelWorksheet.Cells[startRow, columnIndex].Text;
                         dataTable.Columns.Add(columnHeader);
                     }
-                    for (int rowNumber = (startRow+1); rowNumber <= endRow; rowNumber++)
+                    for (int rowNumber = (startRow + 1); rowNumber <= endRow; rowNumber++)
                     {
                         var row = excelWorksheet.Cells[rowNumber, 1, rowNumber, endColumn];
                         var newRow = dataTable.NewRow();
 
                         foreach (var cell in row)
                         {
-                            if (double.TryParse(cell.Text,out double numericValue))
+                            if (double.TryParse(cell.Text, out double numericValue))
                             {
                                 newRow[cell.Start.Column - 1] = numericValue;
                             }
@@ -142,21 +142,18 @@ namespace S2PAndExcelDataApp
                 }
 
                 string savePath = excelSaveFileDialog(saveSheetName);
-                if (!IsFileInUse(savePath))
-                {
-                    if (savePath != null)
-                    {
-                        excelPackage.SaveAs(new System.IO.FileInfo(savePath));
 
-                    }
+
+                if (savePath != null)
+                {
+                    excelPackage.SaveAs(new System.IO.FileInfo(savePath));
                     return savePath;
+
                 }
                 else
                 {
-                    MessageBox.Show("Önce dosyayı kapatın");
                     return null;
                 }
-                
 
             }
         }
@@ -202,12 +199,12 @@ namespace S2PAndExcelDataApp
 
             }
         }
-        public string S2PtoExcelSheetSave(DataTable S2PDataTable, string saveSheetName, string savePath,string S2PFileName,ProgressBar progressBar)
+        public string S2PtoExcelSheetSave(DataTable S2PDataTable, string saveSheetName, string savePath, string S2PFileName, ProgressBar progressBar)
         {
             string dataTableValue;
             if (S2PFileName == saveSheetName)
             {
-                using(var package = new ExcelPackage())
+                using (var package = new ExcelPackage())
                 {
                     package.Workbook.Worksheets.Add(S2PFileName);
 
@@ -236,18 +233,18 @@ namespace S2PAndExcelDataApp
                     var excelSaveFile = new FileInfo(savePath);
 
                     package.SaveAs(excelSaveFile);
-                    
+
                 }
             }
             else
             {
-                using(var package = new ExcelPackage(savePath))
+                using (var package = new ExcelPackage(savePath))
                 {
 
-                    if (saveSheetName.Length >=30)
+                    if (saveSheetName.Length >= 30)
                     {
-                        saveSheetName =new string(saveSheetName.Take(26).ToArray());
-                        saveSheetName = saveSheetName +"_"+ progressBar.Value.ToString();
+                        saveSheetName = new string(saveSheetName.Take(26).ToArray());
+                        saveSheetName = saveSheetName + "_" + progressBar.Value.ToString();
 
                         package.Workbook.Worksheets.Add(saveSheetName);
                     }
@@ -316,7 +313,7 @@ namespace S2PAndExcelDataApp
          * 
          * @return : void
          */
-        public void folderInS2PFileToExcel(string sourceFolder, string outputFolder, ProgressBar progressBar,Chart chart)
+        public void folderInS2PFileToExcel(string sourceFolder, string outputFolder, ProgressBar progressBar, Chart chart)
         {
             FilePathManager filePathManager = new FilePathManager();
             S2PManager S2PManager = new S2PManager();
@@ -327,7 +324,7 @@ namespace S2PAndExcelDataApp
             string excelFilePath;
             try
             {
-               // string mainFileDirectory = Path.GetDirectoryName(sourceFolder);
+                // string mainFileDirectory = Path.GetDirectoryName(sourceFolder);
                 string[] S2P_Files = Directory.GetFiles(sourceFolder, "*.s2p");
 
                 progressBar.Minimum = 0;
@@ -342,15 +339,15 @@ namespace S2PAndExcelDataApp
 
                     S2P_DataTable = S2PManager.readFile(S2P_File);
 
-                    string filePath = S2PtoExcelFileSave(S2P_DataTable, S2PFileName,excelFilePath);
-                    
+                    string filePath = S2PtoExcelFileSave(S2P_DataTable, S2PFileName, excelFilePath);
+
                     if (chart != null)
                     {
                         using (ExcelPackage package = new ExcelPackage(new FileInfo(filePath)))
                         {
                             //processor.saveChart(package, chart, S2PFileName);
                             processor.createChart(S2P_DataTable, chart);
-                            processor.createExcelChart(S2P_DataTable,package,S2PFileName);
+                            processor.createExcelChart(S2P_DataTable, package, S2PFileName);
                             package.Save();
                         }
                     }
@@ -378,7 +375,7 @@ namespace S2PAndExcelDataApp
             string S2PWorkBookName;
             string packagePathKontrol;
             string hataSayfaIsmiKontrol;
-            
+
             try
             {
                 string[] S2P_Files = Directory.GetFiles(sourceFolder, "*.s2p");
@@ -393,15 +390,15 @@ namespace S2PAndExcelDataApp
                     int random2 = random.Next(1, 101);
                     hataSayfaIsmiKontrol = $"Sayfa_{random1.ToString()}_{random2.ToString()}";
                     S2PWorkBookName = filePathManager.pathName(S2P_Files[S2PFileNameKontrol]);
-                    packagePathKontrol = Path.Combine(outputFolder, S2PWorkBookName)+".xlsx";
+                    packagePathKontrol = Path.Combine(outputFolder, S2PWorkBookName) + ".xlsx";
                     progressBar.Value += 1;
                     S2PSheetName = filePathManager.pathName(S2P_File);
                     S2P_DataTable = S2PManager.readFile(S2P_File);
-                    
 
-                    hataSayfaIsmiKontrol=S2PtoExcelSheetSave(S2P_DataTable, S2PSheetName, packagePathKontrol, S2PWorkBookName, progressBar);
-                   
-                    
+
+                    hataSayfaIsmiKontrol = S2PtoExcelSheetSave(S2P_DataTable, S2PSheetName, packagePathKontrol, S2PWorkBookName, progressBar);
+
+
 
                     if (chart != null)
                     {
@@ -412,8 +409,8 @@ namespace S2PAndExcelDataApp
                                 processor.createChart(S2P_DataTable, chart);
                                 processor.createExcelChart(S2P_DataTable, package, S2PWorkBookName);
                                 package.Save();
-                                
-                                
+
+
                             }
                             else
                             {
@@ -424,7 +421,7 @@ namespace S2PAndExcelDataApp
                         }
                     }
                 }
-                
+
                 MessageBox.Show("Klasör içerisindeki S2P dosyaları excele kaydedildi");
             }
             catch (Exception e)

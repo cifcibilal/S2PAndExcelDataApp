@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -187,7 +187,7 @@
             this.btnS2PFileSheetConverter.Name = "btnS2PFileSheetConverter";
             this.btnS2PFileSheetConverter.Size = new System.Drawing.Size(125, 107);
             this.btnS2PFileSheetConverter.TabIndex = 4;
-            this.btnS2PFileSheetConverter.Text = "S2P Dosyalarını \r\nTek Excel Dosyasına \r\nDönüştür";
+            this.btnS2PFileSheetConverter.Text = "Tek Excel Dosyasına \r\nDönüştür";
             this.btnS2PFileSheetConverter.UseVisualStyleBackColor = true;
             this.btnS2PFileSheetConverter.Click += new System.EventHandler(this.btnS2PFileSheetConverter_Click);
             // 
@@ -227,7 +227,7 @@
             this.btnS2PFileConverter.Name = "btnS2PFileConverter";
             this.btnS2PFileConverter.Size = new System.Drawing.Size(125, 107);
             this.btnS2PFileConverter.TabIndex = 1;
-            this.btnS2PFileConverter.Text = "Tüm S2P Dosyalarını \r\nAyrı Excel Dosyalarına \r\nDönüştür";
+            this.btnS2PFileConverter.Text = "Ayrı Excel Dosyalarına \r\nDönüştür";
             this.btnS2PFileConverter.UseVisualStyleBackColor = true;
             this.btnS2PFileConverter.Click += new System.EventHandler(this.btnS2PFileConverter_Click);
             // 
@@ -586,18 +586,18 @@
             // 
             // chartData
             // 
-            chartArea5.Name = "ChartArea1";
-            this.chartData.ChartAreas.Add(chartArea5);
+            chartArea6.Name = "ChartArea1";
+            this.chartData.ChartAreas.Add(chartArea6);
             this.chartData.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend5.Name = "Legend1";
-            this.chartData.Legends.Add(legend5);
+            legend6.Name = "Legend1";
+            this.chartData.Legends.Add(legend6);
             this.chartData.Location = new System.Drawing.Point(3, 18);
             this.chartData.Name = "chartData";
-            series5.ChartArea = "ChartArea1";
-            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series5.Legend = "Legend1";
-            series5.Name = "Series1";
-            this.chartData.Series.Add(series5);
+            series6.ChartArea = "ChartArea1";
+            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series6.Legend = "Legend1";
+            series6.Name = "Series1";
+            this.chartData.Series.Add(series6);
             this.chartData.Size = new System.Drawing.Size(1270, 773);
             this.chartData.TabIndex = 0;
             this.chartData.Text = "chart1";
