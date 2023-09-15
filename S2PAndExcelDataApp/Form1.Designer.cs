@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -77,6 +77,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.chartData = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.label1 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -122,12 +123,13 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.label1);
             this.groupBox4.Controls.Add(this.comboBoxSheetNames);
             this.groupBox4.Controls.Add(this.btnExcelOpen);
             this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.groupBox4.Location = new System.Drawing.Point(6, 570);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(429, 224);
+            this.groupBox4.Size = new System.Drawing.Size(339, 224);
             this.groupBox4.TabIndex = 2;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Excel İşlemleri";
@@ -135,7 +137,7 @@
             // comboBoxSheetNames
             // 
             this.comboBoxSheetNames.FormattingEnabled = true;
-            this.comboBoxSheetNames.Location = new System.Drawing.Point(8, 103);
+            this.comboBoxSheetNames.Location = new System.Drawing.Point(9, 117);
             this.comboBoxSheetNames.Name = "comboBoxSheetNames";
             this.comboBoxSheetNames.Size = new System.Drawing.Size(288, 28);
             this.comboBoxSheetNames.TabIndex = 6;
@@ -144,7 +146,7 @@
             // btnExcelOpen
             // 
             this.btnExcelOpen.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.btnExcelOpen.Location = new System.Drawing.Point(171, 45);
+            this.btnExcelOpen.Location = new System.Drawing.Point(166, 40);
             this.btnExcelOpen.Name = "btnExcelOpen";
             this.btnExcelOpen.Size = new System.Drawing.Size(125, 52);
             this.btnExcelOpen.TabIndex = 4;
@@ -157,9 +159,9 @@
             this.groupBox3.Controls.Add(this.groupBox6);
             this.groupBox3.Controls.Add(this.groupBox5);
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.groupBox3.Location = new System.Drawing.Point(904, 570);
+            this.groupBox3.Location = new System.Drawing.Point(814, 570);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(605, 223);
+            this.groupBox3.Size = new System.Drawing.Size(695, 223);
             this.groupBox3.TabIndex = 1;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "S2P To Excel";
@@ -171,7 +173,7 @@
             this.groupBox6.Controls.Add(this.btnS2PSaveFileSelect);
             this.groupBox6.Controls.Add(this.btnS2PFileSelect);
             this.groupBox6.Controls.Add(this.btnS2PFileConverter);
-            this.groupBox6.Location = new System.Drawing.Point(164, 25);
+            this.groupBox6.Location = new System.Drawing.Point(254, 27);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(435, 191);
             this.groupBox6.TabIndex = 3;
@@ -234,7 +236,7 @@
             this.groupBox5.Controls.Add(this.btnS2POpen);
             this.groupBox5.Controls.Add(this.btnS2PConverter);
             this.groupBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.groupBox5.Location = new System.Drawing.Point(6, 25);
+            this.groupBox5.Location = new System.Drawing.Point(52, 27);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(152, 191);
             this.groupBox5.TabIndex = 2;
@@ -244,7 +246,7 @@
             // btnS2POpen
             // 
             this.btnS2POpen.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.btnS2POpen.Location = new System.Drawing.Point(6, 32);
+            this.btnS2POpen.Location = new System.Drawing.Point(14, 32);
             this.btnS2POpen.Name = "btnS2POpen";
             this.btnS2POpen.Size = new System.Drawing.Size(125, 52);
             this.btnS2POpen.TabIndex = 0;
@@ -255,7 +257,7 @@
             // btnS2PConverter
             // 
             this.btnS2PConverter.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.btnS2PConverter.Location = new System.Drawing.Point(6, 115);
+            this.btnS2PConverter.Location = new System.Drawing.Point(14, 115);
             this.btnS2PConverter.Name = "btnS2PConverter";
             this.btnS2PConverter.Size = new System.Drawing.Size(125, 52);
             this.btnS2PConverter.TabIndex = 1;
@@ -276,7 +278,7 @@
             this.groupBox7.Controls.Add(this.btnSorgula);
             this.groupBox7.Controls.Add(this.textBoxSaveName);
             this.groupBox7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.groupBox7.Location = new System.Drawing.Point(441, 570);
+            this.groupBox7.Location = new System.Drawing.Point(351, 571);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(457, 223);
             this.groupBox7.TabIndex = 31;
@@ -584,21 +586,30 @@
             // 
             // chartData
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chartData.ChartAreas.Add(chartArea1);
+            chartArea5.Name = "ChartArea1";
+            this.chartData.ChartAreas.Add(chartArea5);
             this.chartData.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend1.Name = "Legend1";
-            this.chartData.Legends.Add(legend1);
+            legend5.Name = "Legend1";
+            this.chartData.Legends.Add(legend5);
             this.chartData.Location = new System.Drawing.Point(3, 18);
             this.chartData.Name = "chartData";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chartData.Series.Add(series1);
+            series5.ChartArea = "ChartArea1";
+            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series5.Legend = "Legend1";
+            series5.Name = "Series1";
+            this.chartData.Series.Add(series5);
             this.chartData.Size = new System.Drawing.Size(1270, 773);
             this.chartData.TabIndex = 0;
             this.chartData.Text = "chart1";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(5, 94);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(111, 20);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "Sayfa değiştir";
             // 
             // Form1
             // 
@@ -614,6 +625,7 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
@@ -680,6 +692,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Button btnS2PFileSheetConverter;
+        private System.Windows.Forms.Label label1;
     }
 }
 
