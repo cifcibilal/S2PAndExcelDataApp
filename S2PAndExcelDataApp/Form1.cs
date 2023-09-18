@@ -344,6 +344,8 @@ namespace S2PAndExcelDataApp
         {
             string saveSheetName = textBoxSaveName.Text;
 
+            saveSheetName = saveSheetName.Replace(" ", "");
+
             string filePath = this.selectedExcelOpenFilePath;
 
             string selectedMinValue = textBoxMinMHz.Text;
