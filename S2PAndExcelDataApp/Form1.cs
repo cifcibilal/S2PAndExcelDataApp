@@ -51,6 +51,7 @@ namespace S2PAndExcelDataApp
 
         private void btnS2POpen_Click(object sender, EventArgs e)
         {
+            
             comboBoxSheetNames.SelectedItem = null;
             comboBoxSheetNames.Items.Clear();
             comboBoxSheetNames.Enabled = false;
@@ -68,6 +69,10 @@ namespace S2PAndExcelDataApp
                 btnS2PConverter.Enabled = false;
                 textBoxMinMHz.Text = string.Empty;
                 textBoxMaxMHz.Text = string.Empty;
+                if (chartData.Series != null)
+                {
+                    chartData.Series.Clear();
+                }
             }
             dataGridViewData.Columns.Clear();
             dataGridViewData.DataSource = this.S2PDataTable;
@@ -227,6 +232,11 @@ namespace S2PAndExcelDataApp
                 comboBoxSheetNames.Items.Clear();
                 comboBoxSheetNames.Enabled = false;
                 btnSave.Enabled = false;
+                if(chartData.Series != null)
+                {
+                    chartData.Series.Clear();
+                }
+                
             }
             dataGridViewData.Columns.Clear();
             dataGridViewData.DataSource = this.excelDataTable;
@@ -359,15 +369,22 @@ namespace S2PAndExcelDataApp
                         }
 
                     }
-
+                    int openSheetName = comboBoxSheetNames.SelectedIndex;
                     comboBoxSheetNames.Items.Clear();
                     UIHelper helper = new UIHelper();
                     foreach (var item in helper.getSheetNames(filePath))
                     {
                         comboBoxSheetNames.Items.Add(item);
                     }
+                    comboBoxSheetNames.SelectedIndex = openSheetName;
                     btnSave.Enabled = false;
-                } 
+
+                    if (!textBoxSaveName.Text.Equals("") && textBoxSaveName.Text != string.Empty && textBoxSaveName.Text != null)
+                    {
+                        textBoxSaveName.Text = string.Empty;
+                    }
+
+                }
             }
             else
             {
