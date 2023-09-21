@@ -18,7 +18,7 @@ namespace S2PAndExcelDataApp
         {
 
         }
-        /**
+        /*
         * @brief : Excel dosyasını openFileDialog ile açar. 
         * 
         * @param :
@@ -42,7 +42,7 @@ namespace S2PAndExcelDataApp
             }
             return path;
         }
-        /**
+        /*
          * @brief : Excel dosyasını bir datatable'a aktarır.
          * 
          * @param : path:String, okunacak dosyanın dizini
@@ -72,32 +72,40 @@ namespace S2PAndExcelDataApp
                     int endColumn = excelWorksheet.Dimension.Columns;
 
                     string columnHeader;
-
-                    for (int columnIndex = 1; columnIndex <= endColumn; columnIndex++)
+                    if (endColumn == 9) 
                     {
-                        columnHeader = excelWorksheet.Cells[startRow, columnIndex].Text;
-                        dataTable.Columns.Add(columnHeader);
-                    }
-                    for (int rowNumber = (startRow + 1); rowNumber <= endRow; rowNumber++)
-                    {
-                        var row = excelWorksheet.Cells[rowNumber, 1, rowNumber, endColumn];
-                        var newRow = dataTable.NewRow();
-
-                        foreach (var cell in row)
+                        for (int columnIndex = 1; columnIndex <= endColumn; columnIndex++)
                         {
-                            if (double.TryParse(cell.Text, out double numericValue))
-                            {
-                                newRow[cell.Start.Column - 1] = numericValue;
-                            }
-                            else
-                            {
-                                newRow[cell.Start.Column - 1] = cell.Text;
-                            }
+                            columnHeader = excelWorksheet.Cells[startRow, columnIndex].Text;
+                            dataTable.Columns.Add(columnHeader);
                         }
-                        dataTable.Rows.Add(newRow);
+                        for (int rowNumber = (startRow + 1); rowNumber <= endRow; rowNumber++)
+                        {
+                            var row = excelWorksheet.Cells[rowNumber, 1, rowNumber, endColumn];
+                            var newRow = dataTable.NewRow();
+
+                            foreach (var cell in row)
+                            {
+                                if (double.TryParse(cell.Text, out double numericValue))
+                                {
+                                    newRow[cell.Start.Column - 1] = numericValue;
+                                }
+                                else
+                                {
+                                    newRow[cell.Start.Column - 1] = cell.Text;
+                                }
+                            }
+                            dataTable.Rows.Add(newRow);
+                        }
+                        return dataTable;
                     }
+                    else
+                    {
+                        return null;
+                    }
+                    
                 }
-                return dataTable;
+                //return dataTable;
             }
             catch (Exception e)
             {
@@ -105,7 +113,7 @@ namespace S2PAndExcelDataApp
                 return null;
             }
         }
-        /**
+        /*
          * @brief : DataTable verilerini Excel olarak kaydeder.
          * 
          * @param : S2PDataTable:DataTable, S2P verilerini içeren DataTable
@@ -157,7 +165,7 @@ namespace S2PAndExcelDataApp
 
             }
         }
-        /**
+        /*
          * @brief : DataTable verilerini Excel olarak kaydeder.
          * 
          * @param : S2PDataTable:DataTable, S2P verilerini içeren DataTable
@@ -280,7 +288,7 @@ namespace S2PAndExcelDataApp
             }
             return saveSheetName;
         }
-        /**
+        /*
          * @brief : Excele çevrilmiş S2P Dosyasının kaydedileceği dizin seçilir
          * 
          * @param : defaultSaveName : string, S2P Dosya adı
@@ -304,7 +312,7 @@ namespace S2PAndExcelDataApp
                 return null;
             }
         }
-        /**
+        /*
          * @brief : Bir klasör içerisindeki tüm S2P dosyalarını istenilen klasöre kaydeder.
          * 
          * @param : sourceFolder:string, S2P Dosyalarının bulunduğu klasör

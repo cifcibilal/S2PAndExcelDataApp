@@ -51,7 +51,7 @@ namespace S2PAndExcelDataApp
 
         private void btnS2POpen_Click(object sender, EventArgs e)
         {
-            
+           
             comboBoxSheetNames.SelectedItem = null;
             comboBoxSheetNames.Items.Clear();
             comboBoxSheetNames.Enabled = false;
@@ -60,12 +60,12 @@ namespace S2PAndExcelDataApp
 
             if (selectedS2POpenFilePath != null)
             {
-                this.S2PDataTable = s2pManager.readFile(selectedS2POpenFilePath);
-                
+                this.S2PDataTable = s2pManager.readFile(selectedS2POpenFilePath);       
             }
             else
             {
                 this.S2PDataTable = null;
+                
                 btnS2PConverter.Enabled = false;
                 textBoxMinMHz.Text = string.Empty;
                 textBoxMaxMHz.Text = string.Empty;
@@ -73,6 +73,7 @@ namespace S2PAndExcelDataApp
                 {
                     chartData.Series.Clear();
                 }
+                
             }
             dataGridViewData.Columns.Clear();
             dataGridViewData.DataSource = this.S2PDataTable;
@@ -114,8 +115,6 @@ namespace S2PAndExcelDataApp
                     {
                         processor.saveChart(package, chartData, saveName);
                         this.excelLineChart=processor.createExcelChart(this.filteredTable, package, saveName);
-                        //processor.limitLineEkleExcelChart(limitLineName, saveName, package, this.excelLineChart, Convert.ToDouble(textBox_LimitLine_MinMHz.Text), Convert.ToDouble(textBox_LimitLine_MaxMHz.Text), Convert.ToDouble(textBox_LimitLine_dB.Text));
-                        //processor.limitLineEkleExcelChart(limitLineName, saveName, package, this.excelLineChart,400,2000,-30);
                         if (!excelManager.IsFileInUse(filePath))
                         {
                             package.Save();
@@ -317,6 +316,7 @@ namespace S2PAndExcelDataApp
             }
             try
             {
+                dataGridViewQueriedData.Columns.Clear();
                 this.filteredTable = filter.filterByMHz(originalData, minMHz, maxMHz);
 
                 dataGridViewQueriedData.Columns.Clear();

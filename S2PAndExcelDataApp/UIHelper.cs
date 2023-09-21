@@ -73,6 +73,5 @@ namespace S2PAndExcelDataApp
                 e.Handled = true;
             }
         }
-
     }
 }

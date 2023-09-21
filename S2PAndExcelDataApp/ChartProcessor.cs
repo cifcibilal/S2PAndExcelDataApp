@@ -85,16 +85,15 @@ namespace S2PAndExcelDataApp
                         }
                     }
                 }
-
             }
         }
 
         public void LimitLineEkle(string limitLineName, Chart chartData, double textBox_LimitLine_MinMHz, double textBox_LimitLine_MaxMHz, double textBox_LimitLine_dB)
         {
-            double x1 = double.Parse(textBox_LimitLine_MinMHz.ToString());
-            double x2 = double.Parse(textBox_LimitLine_MaxMHz.ToString());
-            double y = double.Parse(textBox_LimitLine_dB.ToString());
 
+            double x1 = textBox_LimitLine_MinMHz;
+            double x2 = textBox_LimitLine_MaxMHz;
+            double y = textBox_LimitLine_dB;
             Series existingSeries = chartData.Series.FindByName(limitLineName);
             if (existingSeries != null)
             {
@@ -221,12 +220,9 @@ namespace S2PAndExcelDataApp
                 series.Fill.Style = OfficeOpenXml.Drawing.eFillStyle.SolidFill;
                 j++;
             }
-            //package.Save();
             return chart;
         }
-        
-          
-    public void limitLineEkleExcelChart(string limitLineName, string sheetName, ExcelPackage package, ExcelLineChart chart, double MinMHz, double MaxMHz, double dB)
+        public void limitLineEkleExcelChart(string limitLineName, string sheetName, ExcelPackage package, ExcelLineChart chart, double MinMHz, double MaxMHz, double dB)
         {
             var worksheet = package.Workbook.Worksheets[sheetName];
 

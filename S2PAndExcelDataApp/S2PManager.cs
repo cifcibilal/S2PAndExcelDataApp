@@ -12,7 +12,7 @@ namespace S2PAndExcelDataApp
 {
     public class S2PManager : FileManager
     {
-        
+
         public S2PManager()
         {
 
@@ -60,46 +60,7 @@ namespace S2PAndExcelDataApp
                     {
                         stream.ReadLine();//s2p dosyasındaki ilk 4 satırı atlıyoruz.
                     }
-                    //ilk satır sütun başlıkları.
-                    /*
-                    string headerLine = stream.ReadLine();
 
-                    string[] headersData = headerLine.Split('\t');
-                    string headersLine = null;
-                    for (int i = 0; i < headersData.Length; i++)
-                    {
-                        if (i == headersData.Length - 1)
-                        {
-                            headersLine = headersLine + headersData[i];
-                        }
-                        else
-                        {
-                            headersLine = headersLine + headersData[i] + "/";
-                        }
-                    }
-                    headersData = null;
-                    headersData = headersLine.Split('/');
-                    
-                    //Sütun isimlerinin çakışması önleniyor.
-                    for (int i = 0; i < headersData.Length; i++)
-                    {
-                        if (headersData[i].Equals("Ang(F2)"))
-                        {
-                            dataTable.Columns.Add(headersData[i] + headersData[i - 1]);
-                            dataTable.Columns[i].ColumnName = headersData[i] + headersData[i - 1];
-                        }
-                        else if (i == 0)
-                        {
-                            dataTable.Columns.Add("MHz");
-                            dataTable.Columns[i].ColumnName = "MHz";
-                        }
-                        else
-                        {
-                            dataTable.Columns.Add(headersData[i]);
-                            dataTable.Columns[i].ColumnName = headersData[i];
-                        }
-                    }
-                    */
                     for (int i = 0; i < columnHeaderNames.Length; i++)
                     {
                         dataTable.Columns.Add(columnHeaderNames[i]);
@@ -111,7 +72,7 @@ namespace S2PAndExcelDataApp
                         string[] values = line.Split('\t');
                         for (int i = 0; i < values.Length; i++)
                         {
-                            if (i == 0 /*|| i == 1 || i == 3 || i == 5 || i == 7*/)
+                            if (i == 0)
                             {
                                 if (double.TryParse(values[i].ToString(), NumberStyles.Float, CultureInfo.InvariantCulture, out double doubleValue))
                                 {
@@ -145,13 +106,13 @@ namespace S2PAndExcelDataApp
 
             string S2PFolderPath;
             FolderBrowserDialog dialog = new FolderBrowserDialog();
-            if (dialog.ShowDialog()==DialogResult.OK)
+            if (dialog.ShowDialog() == DialogResult.OK)
             {
                 S2PFolderPath = dialog.SelectedPath;
             }
             else
             {
-                S2PFolderPath= null;
+                S2PFolderPath = null;
             }
             return S2PFolderPath;
         }

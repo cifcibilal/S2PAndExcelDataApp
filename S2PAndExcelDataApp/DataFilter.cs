@@ -35,16 +35,8 @@ namespace S2PAndExcelDataApp
                 {
                     foreach (DataRow row in originalData.Rows)
                     {
-                        if (mhzColumn.DataType == typeof(double))
-                        {
-                            double MHz = Convert.ToDouble(row[mhzColumn]);
-                            if (MHz >= minMHz && MHz <= maxMHz)
-                            {
-                                filteredTable.ImportRow(row);
-                            }
-                        }
-                        else if (mhzColumn.DataType == typeof(string))
-                        {
+                        
+                       
                             string mhzValue = row[mhzColumn].ToString();
                             if (double.TryParse(mhzValue, out double MHz))
                             {
@@ -53,7 +45,7 @@ namespace S2PAndExcelDataApp
                                     filteredTable.ImportRow(row);
                                 }
                             }
-                        }
+                        
                     }
                     return filteredTable;
                 }
@@ -68,7 +60,6 @@ namespace S2PAndExcelDataApp
                 MessageBox.Show("Uyarı : Önce dosya açın.");
                 return null;
             }
-
         }
 
         public bool saveFilteredData(DataTable filteredTable, string filePath, string saveSheetName)
